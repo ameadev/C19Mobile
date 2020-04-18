@@ -1,7 +1,14 @@
 import {init} from '@rematch/core';
-import * as models from './models';
+import {AppState} from './models';
+
+
+export const initModels = () => {
+    return {
+        appState: AppState(),
+    };
+};
 
 export const initStore = () =>
   init({
-    models,
+    models: initModels()
   });

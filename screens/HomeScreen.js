@@ -1,11 +1,22 @@
 import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
+import  React, {useEffect} from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { MonoText } from '../components/StyledText';
+import useRematchDispatch from "../hooks/useRematchDispatch";
 
 export default function HomeScreen() {
+  const {loadCountries} = useRematchDispatch(dispatch => ({
+    loadCountries: dispatch.appState.loadCountries,
+  }));
+
+  useEffect(() => {
+    loadCountries();
+      }
+
+  );
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>

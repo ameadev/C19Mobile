@@ -1,8 +1,12 @@
+import {createModel} from "@rematch/core";
+
 import * as queries from '../queries/query';
 
-export const appState = () => ({
+export const AppState = () =>
+    createModel({
   state: {
     accountCreated: false,
+    constantSent: false,
     countries: [],
   },
   reducers: {
@@ -12,19 +16,25 @@ export const appState = () => ({
     updateAccount(state, account) {
       return {...state, account: account};
     },
+    setCreationStatus(state, status) {
+      return {...state, accountCreated: status};
+    },
+    setSendingStatus(state, status) {
+      return {...state, constantSent: status};
+    },
   },
 
   effects: dispatch => ({
     async loadCountries(payload, rootState) {
       await queries
         .fetchCountries()
-        .then(result => dispatch.appState.updateCountries(result));
+        .then(result => dispatch.appState.updateCountries(result.data));
     },
     async connection(payload, rootState) {
       try {
         await queries.connection(payload).then(result => {
           console.log(result);
-          dispatch.appState.updateAccount(result.response);
+          dispatch.appState.updateAccount(result.data);
         });
       } catch (err) {
         console.log(err);
@@ -33,8 +43,7 @@ export const appState = () => ({
     async createAccount(payload, rootState) {
       try {
         await queries.createAccount(payload).then(result => {
-          console.log(result);
-          dispatch.appState.updateAccount(result);
+          dispatch.appState.setCreationStatus(result.data.ID !== "");
         });
       } catch (err) {
         console.log(err);
@@ -44,8 +53,7 @@ export const appState = () => ({
     async addConstants(payload, rootState) {
       try {
         await queries.sendConstants(payload).then(result => {
-          console.log(result);
-          dispatch.appState.setLogin(result);
+          dispatch.appState.setSendingStatus(result.data.ID !== "");
         });
       } catch (err) {
         console.log(err);
