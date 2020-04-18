@@ -29,7 +29,7 @@ export default function App(props) {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
-          'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+          'dax-regular': require('./assets/fonts/daxregular.ttf'),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
