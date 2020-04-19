@@ -13,9 +13,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     loadCountries();
-      }
-
-  );
+      },  []);
 
   return (
     <View style={styles.container}>

@@ -4,17 +4,14 @@ import {SplashScreen} from 'expo';
 import * as Font from 'expo-font';
 import {Ionicons} from '@expo/vector-icons';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
 
-import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import {Provider} from "react-redux";
 import './translation/i18n'
 import {initStore} from "./models/store";
+import StackNavigator from "./navigation/StackNavigator";
 
 const store = initStore();
-
-const Stack = createStackNavigator();
 
 export default function App(props) {
     const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -56,9 +53,7 @@ export default function App(props) {
                 {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
                 <Provider store={store}>
                     <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-                        <Stack.Navigator>
-                            <Stack.Screen name="Root" component={BottomTabNavigator}/>
-                        </Stack.Navigator>
+                        <StackNavigator/>
                     </NavigationContainer>
                 </Provider>
             </View>
