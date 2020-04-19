@@ -9,6 +9,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import {Provider} from "react-redux";
+import './translation/i18n'
 import {initStore} from "./models/store";
 
 const store = initStore();
