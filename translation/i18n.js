@@ -3,7 +3,8 @@ import i18next from "i18next";
 import {initReactI18next} from "react-i18next";
 import fr from '../assets/language/fr'
 import en from '../assets/language/en'
-import {Localization} from "expo";
+//import { Localization } from "expo";
+import * as Localization from 'expo-localization';
 
 
 const fallbackLanguage = "fr";
@@ -34,7 +35,7 @@ i18next
     .use(initReactI18next)
     .init({
         resources: resources,
-        lng: 'fr',
+        lng: Localization.locale,
         fallbackLng: fallbackLanguage,
         debug: true,
         interpolation: {
