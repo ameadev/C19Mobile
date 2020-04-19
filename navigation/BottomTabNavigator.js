@@ -2,13 +2,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import BordScreen from '../screens/BordScreen';
+import HistoryScreen from '../screens/HistoryScreen';
+import InfoScreen from '../screens/InfoScreen';
+import ContactScreen from '../screens/ContactScreen';
 
 import {useTranslation} from "../hooks/useTranslation";
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+const INITIAL_ROUTE_NAME = 'BordScreen';
 
 
 export default function BottomTabNavigator({ navigation, route }) {
@@ -21,19 +23,35 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="BordScreen"
+        component={BordScreen}
         options={{
           title: t('title_dashboard'),
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-analytics" />,
         }}
       />
       <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
+        name="HistoryScreen"
+        component={HistoryScreen}
+        options={{
+          title: t('title_history'),
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-clock" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="InfoScreen"
+        component={InfoScreen}
         options={{
           title: t('title_info'),
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-information-circle" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="ContactScreen"
+        component={ContactScreen}
+        options={{
+          title: t('title_creation'),
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person-add" />,
         }}
       />
     </BottomTab.Navigator>
@@ -45,9 +63,13 @@ function getHeaderTitle(route) {
     const { t } = useTranslation();
 
   switch (routeName) {
-    case 'Home':
+    case 'BordScreen':
       return t('label_dashboard');
-    case 'Links':
+    case 'HistoryScreen':
+      return t('label_history');
+    case 'InfoScreen':
       return t('label_info');
+    case 'ContactScreen':
+      return t('label_creation');
   }
 }
