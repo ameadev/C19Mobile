@@ -7,10 +7,14 @@ import HistoryScreen from '../screens/HistoryScreen';
 import InfoScreen from '../screens/InfoScreen';
 import ContactScreen from '../screens/ContactScreen';
 
+import {useTranslation} from "../hooks/useTranslation";
+
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'BordScreen';
 
+
 export default function BottomTabNavigator({ navigation, route }) {
+    const { t } = useTranslation();
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
@@ -22,7 +26,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="BordScreen"
         component={BordScreen}
         options={{
-          title: 'Bord',
+          title: t('title_dashboard'),
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-analytics" />,
         }}
       />
@@ -30,7 +34,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="HistoryScreen"
         component={HistoryScreen}
         options={{
-          title: 'Historique',
+          title: t('title_history'),
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-clock" />,
         }}
       />
@@ -38,7 +42,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="InfoScreen"
         component={InfoScreen}
         options={{
-          title: 'Info',
+          title: t('title_info'),
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-information-circle" />,
         }}
       />
@@ -46,7 +50,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="ContactScreen"
         component={ContactScreen}
         options={{
-          title: 'Compte',
+          title: t('title_creation'),
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person-add" />,
         }}
       />
@@ -56,15 +60,16 @@ export default function BottomTabNavigator({ navigation, route }) {
 
 function getHeaderTitle(route) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+    const { t } = useTranslation();
 
   switch (routeName) {
     case 'BordScreen':
-      return 'Tableau de bord';
+      return t('label_dashboard');
     case 'HistoryScreen':
-      return 'Historique';
+      return t('label_history');
     case 'InfoScreen':
-      return 'Information de santé';
+      return t('label_info');
     case 'ContactScreen':
-      return 'Création de compte';
+      return t('label_creation');
   }
 }
