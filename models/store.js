@@ -1,10 +1,12 @@
 import {init} from '@rematch/core';
-import {AppState} from './models';
+import {Account} from './account';
+import {Location} from './location';
 
 
 export const initModels = () => {
     return {
-        appState: AppState(),
+        location: Location(),
+        account: Account(),
     };
 };
 

@@ -1,7 +1,7 @@
-import  React, {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
-import { ListItem } from 'react-native-elements'
-import { FlatList } from 'react-native-gesture-handler';
+import {ListItem} from 'react-native-elements'
+import {FlatList} from 'react-native-gesture-handler';
 
 
 import useRematchDispatch from "../hooks/useRematchDispatch";
@@ -9,14 +9,14 @@ import {useTranslation} from "../hooks/useTranslation";
 import {useSelector} from "react-redux";
 
 export default function MainScreen({navigation}) {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const {loadCountries, saveCountry, loadCurrentCounty} = useRematchDispatch(dispatch => ({
-        loadCurrentCounty: dispatch.appState.loadCurrentCounty,
-        loadCountries: dispatch.appState.loadCountries,
-        saveCountry: dispatch.appState.saveCountry,
+        loadCurrentCounty: dispatch.location.loadCurrentCounty,
+        loadCountries: dispatch.location.loadCountries,
+        saveCountry: dispatch.location.saveCountry,
     }));
-    const  countries  = useSelector(state => state.appState.countries);
-    const  currentCountry  = useSelector(state => state.appState.currentCountry);
+    const countries = useSelector(state => state.location.countries);
+    const currentCountry = useSelector(state => state.location.currentCountry);
 
     useEffect(() => {
         loadCurrentCounty();
@@ -25,16 +25,17 @@ export default function MainScreen({navigation}) {
         if (currentCountry === null || currentCountry === undefined) {
             loadCountries();
         } else {
-            console.log(currentCountry);
             navigation.navigate("Root");
         }
 
-        }, [currentCountry]);
+    }, [currentCountry]);
 
     const keyExtractor = (item, index) => index.toString();
 
-    const renderItem = ({ item }) => (
-        <TouchableOpacity onPress={() => { onPressItem({item}) }}>
+    const renderItem = ({item}) => (
+        <TouchableOpacity onPress={() => {
+            onPressItem({item})
+        }}>
             <ListItem
                 title={item.name}
                 leftAvatar={{source: {uri: `https://www.countryflags.io/${item.iso_code}/flat/64.png`}}}
@@ -50,15 +51,14 @@ export default function MainScreen({navigation}) {
     };
 
     return (
-           <FlatList style={styles.container} contentContainerStyle={styles.contentContainer}
-            data={countries}
-           keyExtractor={keyExtractor}
-            renderItem={renderItem}
-           />
+        <FlatList style={styles.container} contentContainerStyle={styles.contentContainer}
+                  data={countries}
+                  keyExtractor={keyExtractor}
+                  renderItem={renderItem}
+        />
 
     );
 }
-
 
 
 const styles = StyleSheet.create({
