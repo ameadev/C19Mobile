@@ -1,12 +1,13 @@
+//dependencies imports
 import React, {useEffect} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {ListItem} from 'react-native-elements'
 import {FlatList} from 'react-native-gesture-handler';
+import {useSelector} from "react-redux";
 
-
+//app imports
 import useRematchDispatch from "../hooks/useRematchDispatch";
 import {useTranslation} from "../hooks/useTranslation";
-import {useSelector} from "react-redux";
 
 export default function MainScreen({navigation}) {
     const {t} = useTranslation();
@@ -21,6 +22,7 @@ export default function MainScreen({navigation}) {
     useEffect(() => {
         loadCurrentCountry();
     }, []);
+
     useEffect(() => {
         if (currentCountry === null) {
             loadCountries();
@@ -57,7 +59,6 @@ export default function MainScreen({navigation}) {
                   renderItem={renderItem}
                   ListEmptyComponent={null}
         />
-
     );
 }
 

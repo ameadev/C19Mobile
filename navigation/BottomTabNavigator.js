@@ -1,6 +1,8 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+//dependencies imports
 import * as React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+//app imports
 import TabBarIcon from '../components/TabBarIcon';
 import BordScreen from '../screens/BordScreen';
 import HistoryScreen from '../screens/HistoryScreen';
@@ -12,12 +14,9 @@ import {useTranslation} from "../hooks/useTranslation";
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'BordScreen';
 
-
 export default function BottomTabNavigator({ navigation, route }) {
     const { t } = useTranslation();
-  // Set the header title on the parent stack navigator depending on the
-  // currently active tab. Learn more in the documentation:
-  // https://reactnavigation.org/docs/en/screen-options-resolution.html
+
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
