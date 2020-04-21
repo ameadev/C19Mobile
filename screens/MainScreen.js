@@ -10,8 +10,8 @@ import {useSelector} from "react-redux";
 
 export default function MainScreen({navigation}) {
     const {t} = useTranslation();
-    const {loadCountries, saveCountry, loadCurrentCounty} = useRematchDispatch(dispatch => ({
-        loadCurrentCounty: dispatch.location.loadCurrentCounty,
+    const {loadCountries, saveCountry, loadCurrentCountry} = useRematchDispatch(dispatch => ({
+        loadCurrentCountry: dispatch.location.loadCurrentCountry,
         loadCountries: dispatch.location.loadCountries,
         saveCountry: dispatch.location.saveCountry,
     }));
@@ -19,10 +19,10 @@ export default function MainScreen({navigation}) {
     const currentCountry = useSelector(state => state.location.currentCountry);
 
     useEffect(() => {
-        loadCurrentCounty();
+        loadCurrentCountry();
     }, []);
     useEffect(() => {
-        if (currentCountry === null || currentCountry === undefined) {
+        if (currentCountry === null) {
             loadCountries();
         } else {
             navigation.navigate("Root");
@@ -55,6 +55,7 @@ export default function MainScreen({navigation}) {
                   data={countries}
                   keyExtractor={keyExtractor}
                   renderItem={renderItem}
+                  ListEmptyComponent={null}
         />
 
     );
