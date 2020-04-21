@@ -8,14 +8,12 @@ import useRematchDispatch from "../hooks/useRematchDispatch";
 
 export default function HomeScreen() {
   const {loadCountries} = useRematchDispatch(dispatch => ({
-    loadCountries: dispatch.appState.loadCountries,
+    loadCountries: dispatch.location.loadCountries,
   }));
 
   useEffect(() => {
     loadCountries();
-      }
-
-  );
+      },  []);
 
   return (
     <View style={styles.container}>

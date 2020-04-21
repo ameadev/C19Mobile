@@ -1,5 +1,6 @@
 {
     "app_name": "WinCovid19",
+    "country_title": "Choose your country",
     "title_dashboard": "Dashboard",
     "title_info": "Info",
     "title_creation": "Account",
