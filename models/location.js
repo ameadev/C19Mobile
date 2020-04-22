@@ -31,9 +31,14 @@ export const Location = () =>
                 }
             },
             async loadCountries(payload, rootState) {
-                await queries
-                    .fetchCountries()
-                    .then(result => dispatch.location.setCountries(result.data.response));
+                try {
+                    await queries
+                        .fetchCountries()
+                        .then(result => dispatch.location.setCountries(result.data.response))
+                        .catch(err => console.log(err));
+                } catch (err) {
+                    console.log(err);
+                }
             },
 
             async saveCountry(country, rootState) {

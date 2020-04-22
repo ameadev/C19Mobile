@@ -1,10 +1,12 @@
+//dependencies imports
 import * as React from 'react';
-import {Platform, StatusBar, StyleSheet, View} from 'react-native';
+import {ImageBackground, Platform, StatusBar, StyleSheet, View} from 'react-native';
 import {SplashScreen} from 'expo';
 import * as Font from 'expo-font';
 import {Ionicons} from '@expo/vector-icons';
 import {NavigationContainer} from '@react-navigation/native';
 
+//app imports
 import useLinking from './navigation/useLinking';
 import {Provider} from "react-redux";
 import './translation/i18n'
@@ -67,3 +69,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
 });
+
+

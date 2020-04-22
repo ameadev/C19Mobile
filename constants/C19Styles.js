@@ -1,35 +1,35 @@
-import { StyleSheet, Platform } from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 
 export default StyleSheet.create({
-  
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
 
-  contentContainer: {
-    paddingTop: 30,
-  },
-  
-  tabBarInfoContainer: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      ...Platform.select({
-        ios: {
-          shadowColor: 'black',
-          shadowOffset: { width: 0, height: -3 },
-          shadowOpacity: 0.1,
-          shadowRadius: 3,
-        },
-        android: {
-          elevation: 20,
-        },
-      }),
-      alignItems: 'center',
-      backgroundColor: '#fbfbfb',
-      paddingVertical: 20,
+    container: {
+        flex: 1,
+        fontFamily: 'dax-regular'
+    },
+
+    contentContainer: {
+        paddingTop: 30,
+    },
+
+    tabBarInfoContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        ...Platform.select({
+            ios: {
+                shadowColor: 'black',
+                shadowOffset: {width: 0, height: -3},
+                shadowOpacity: 0.1,
+                shadowRadius: 3,
+            },
+            android: {
+                elevation: 20,
+            },
+        }),
+        alignItems: 'center',
+        backgroundColor: '#fbfbfb',
+        paddingVertical: 20,
     },
 
     button: {
@@ -37,16 +37,17 @@ export default StyleSheet.create({
         backgroundColor: "#ffd942",
         padding: 10,
         margin: 10,
+        fontFamily: 'dax-regular',
         ...Platform.select({
-          ios: {
-            shadowColor: 'black',
-            shadowOffset: { width: 3, height: 3 },
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-          },
-          android: {
-            elevation: 20,
-          },
+            ios: {
+                shadowColor: 'black',
+                shadowOffset: {width: 3, height: 3},
+                shadowOpacity: 0.1,
+                shadowRadius: 3,
+            },
+            android: {
+                elevation: 20,
+            },
         }),
         borderRadius: 5
     },
@@ -54,6 +55,7 @@ export default StyleSheet.create({
     buttonText: {
         fontSize: 17,
         fontWeight: "bold",
-        color: "#ffffff"
+        color: "#ffffff",
+        fontFamily: 'dax-regular'
     },
-  });
+});
