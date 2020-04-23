@@ -11,14 +11,10 @@ export function fetchCountries() {
   });
 }
 
-export function connection(data) {
-  return new Promise(callBack => {
-    axios
-      .post(API + '/patient/connect', data)
-      .then(result => callBack(result))
-      .catch(error => console.log(error));
-  });
-}
+export const connection = async(data) => {
+  let res =  await axios.post(API + '/patient/connect', data);
+  return res.data;
+};
 
 export function createAccount(data) {
   return new Promise(callBack => {

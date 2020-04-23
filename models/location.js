@@ -3,7 +3,6 @@ import {AsyncStorage} from 'react-native';
 
 import * as queries from '../queries/query';
 
-
 export const Location = () =>
     createModel({
         state: {

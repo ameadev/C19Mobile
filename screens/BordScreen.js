@@ -1,5 +1,5 @@
 //dependencies imports
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Image, ImageBackground, StyleSheet, Text, TextInput, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 
@@ -8,22 +8,29 @@ import C19Button from '../components/C19Button';
 import C19Styles from '../constants/C19Styles';
 import {useTranslation} from "../hooks/useTranslation";
 import {useSelector} from "react-redux";
+import useRematchDispatch from "../hooks/useRematchDispatch";
 
 const image = {uri: "./assets/images/home_bg.png"};
 
 export default function BordScreen() {
     const {t} = useTranslation();
+    const {connection, logout} = useRematchDispatch(dispatch => ({
+        connection: dispatch.account.connection,
+        logout: dispatch.account.logout,
+    }));
 
     const isLogged = useSelector(state => state.account.isLogged);
-    let inputPhoneNumber = "";
+    const currentCountry = useSelector(state => state.location.currentCountry);
 
-    function phoneTextInputChanged(text) {
-        inputPhoneNumber = text;
-        console.log(inputPhoneNumber);
-    }
+    const [phoneNumber, setPhoneNumber] = useState();
 
     function onPressConnectionButton() {
-        console.log(inputPhoneNumber);
+        if (isLogged === true){
+            logout();
+            return;
+        }
+        let input = currentCountry.id + phoneNumber;
+        connection({"phone_number": input})
     }
 
     return (
@@ -35,7 +42,7 @@ export default function BordScreen() {
                             style={styles.inputText}
                             placeholder={t('phone_number')}
                             placeholderTextColor="#003f5c"
-                            onChangeText={(text) => phoneTextInputChanged(text)}
+                            onChangeText={(text) => setPhoneNumber(text)}
                         />
                     </View>
                     <C19Button

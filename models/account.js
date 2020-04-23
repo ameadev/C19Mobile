@@ -1,8 +1,7 @@
 import {createModel} from "@rematch/core";
 
 import * as queries from '../queries/query';
-
-
+import {AsyncStorage} from "react-native";
 
 export const Account = () =>
     createModel({
@@ -13,8 +12,8 @@ export const Account = () =>
     isLogged: false,
   },
   reducers: {
-    updateAccount(state, account) {
-      return {...state, currentAccount: account};
+    login(state, account) {
+      return {...state, currentAccount: account, isLogged: true};
     },
     setCreationStatus(state, status) {
       return {...state, accountCreated: status};
@@ -22,16 +21,37 @@ export const Account = () =>
     setSendingStatus(state, status) {
       return {...state, constantSent: status};
     },
+    setLogout(state) {
+      return {...state, currentAccount: null, isLogged: false};
+    },
   },
 
   effects: dispatch => ({
     async connection(payload, rootState) {
       try {
         await queries.connection(payload).then(result => {
-          dispatch.account.updateAccount(result.data);
+          let res = result.response;
+         if (res.id !== "" && res.phone_number === payload.phone_number) {
+           try {
+              AsyncStorage.setItem('phoneNumber', payload.phone_number, () => {
+                dispatch.account.login(res);
+              });
+           } catch (error) {
+             return null
+           }
+         }
         });
       } catch (err) {
         console.log(err);
+      }
+    },
+
+    async logout(payload, rootState) {
+      try {
+        await AsyncStorage.removeItem('phoneNumber');
+              dispatch.account.setLogout();
+      } catch (error) {
+        return null
       }
     },
 

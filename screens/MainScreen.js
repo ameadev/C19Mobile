@@ -20,6 +20,7 @@ export default function MainScreen({navigation}) {
     const currentCountry = useSelector(state => state.location.currentCountry);
 
     useEffect(() => {
+
         loadCurrentCountry();
     }, []);
 
