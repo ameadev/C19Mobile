@@ -18,12 +18,18 @@ export default function BordScreen() {
         connection: dispatch.account.connection,
         logout: dispatch.account.logout,
     }));
-
+    const isLoading = useSelector(state => state.account.isLoading);
     const isLogged = useSelector(state => state.account.isLogged);
     const currentCountry = useSelector(state => state.location.currentCountry);
 
     const [phoneNumber, setPhoneNumber] = useState();
 
+    const buttonText = () => {
+        if (isLoading === true) {
+            return "...";
+        }
+        return isLogged ? t('disconnection') : t('btn_login_text')
+    };
     function onPressConnectionButton() {
         if (isLogged === true){
             logout();
@@ -46,7 +52,7 @@ export default function BordScreen() {
                         />
                     </View>
                     <C19Button
-                        text={isLogged ? t('disconnection') : t('btn_login_text')}
+                        text= {buttonText()}
                         handlePress={() => onPressConnectionButton()}
                     />
                     {isLogged ? null

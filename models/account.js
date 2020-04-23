@@ -10,10 +10,14 @@ export const Account = () =>
     constantSent: false,
     currentAccount: null,
     isLogged: false,
+    isLoading: false,
   },
   reducers: {
     login(state, account) {
-      return {...state, currentAccount: account, isLogged: true};
+      return {...state, currentAccount: account, isLogged: true, isLoading: false};
+    },
+    setLoading(state) {
+      return {...state, isLoading: true};
     },
     setCreationStatus(state, status) {
       return {...state, accountCreated: status};
@@ -28,6 +32,7 @@ export const Account = () =>
 
   effects: dispatch => ({
     async connection(payload, rootState) {
+      dispatch.account.setLoading();
       try {
         await queries.connection(payload).then(result => {
           let res = result.response;
