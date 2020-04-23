@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Image, ImageBackground, StyleSheet, Text, TextInput, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import PureChart from 'react-native-pure-chart';
 
 //app imports
 import C19Button from '../components/C19Button';
@@ -20,9 +21,21 @@ export default function BordScreen() {
     }));
     const isLoading = useSelector(state => state.account.isLoading);
     const isLogged = useSelector(state => state.account.isLogged);
+    const currentAccount = useSelector(state => state.account.currentAccount);
     const currentCountry = useSelector(state => state.location.currentCountry);
 
     const [phoneNumber, setPhoneNumber] = useState();
+    const [graphData, setGraphData] = useState();
+
+    useEffect(() => {
+        if (currentAccount === null) {
+            return;
+        }
+        let data = currentAccount.daily_information.map(d => {
+            return  d.temperature;
+        });
+        setGraphData(data);
+    }, [currentAccount]);
 
     const buttonText = () => {
         if (isLoading === true) {
@@ -30,8 +43,9 @@ export default function BordScreen() {
         }
         return isLogged ? t('disconnection') : t('btn_login_text')
     };
+
     function onPressConnectionButton() {
-        if (isLogged === true){
+        if (isLogged === true) {
             logout();
             return;
         }
@@ -52,12 +66,13 @@ export default function BordScreen() {
                         />
                     </View>
                     <C19Button
-                        text= {buttonText()}
+                        text={buttonText()}
                         handlePress={() => onPressConnectionButton()}
                     />
                     {isLogged ? null
                         : <Text style={styles.initText}> {t('dashboard_init_text')}</Text>
                     }
+                    <PureChart data={graphData} type='line' />
                 </ScrollView>
             </ImageBackground>
 
