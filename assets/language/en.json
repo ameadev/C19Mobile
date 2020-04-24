@@ -46,6 +46,7 @@
     "dashboard_init_text": "Enter your phone number to make connection. If you do not have been already registered please click account on the right bottom",
     "date_format": "MM-dd:HH",
     "date_format2": "EEE, d MMM yyyy HH:mm",
+    "graph_date_format": "d MMM",
     "connected": "Your are connected",
     "disconnection": "Disconnection",
     "close": "Close",

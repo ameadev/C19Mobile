@@ -16,8 +16,8 @@ export const Account = () =>
     login(state, account) {
       return {...state, currentAccount: account, isLogged: true, isLoading: false};
     },
-    setLoading(state) {
-      return {...state, isLoading: true};
+    setLoading(state, isLoading) {
+      return {...state, isLoading: isLoading};
     },
     setCreationStatus(state, status) {
       return {...state, accountCreated: status};
@@ -31,8 +31,18 @@ export const Account = () =>
   },
 
   effects: dispatch => ({
+    async loadCurrentAccount(payload, rootState) {
+      try {
+        await AsyncStorage.getItem('phoneNumber').then(value => {
+              this.connection({"phone_number": value});
+            }
+        );
+      } catch (error) {
+        return null
+      }
+    },
     async connection(payload, rootState) {
-      dispatch.account.setLoading();
+      dispatch.account.setLoading(true);
       try {
         await queries.connection(payload).then(result => {
           let res = result.response;
@@ -42,7 +52,7 @@ export const Account = () =>
                 dispatch.account.login(res);
               });
            } catch (error) {
-             return null
+             dispatch.account.setLoading(false);
            }
          }
         });

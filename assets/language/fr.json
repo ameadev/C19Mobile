@@ -45,6 +45,7 @@
   "dashboard_init_text": "Connectez vous en choisissant votre code pays et fournir votre numéro de téléphone. Si vous n\\'avez pas encore unc compte cliquez sur Compte pour en créer.",
   "date_format": "dd-MM:HH",
   "date_format2": "EEE, d MMM yyyy HH:mm",
+  "graph_date_format": "d MMM",
   "connected": "Vous êtes connecté",
   "disconnection": "Déconnexion",
   "close": "Fermer",
